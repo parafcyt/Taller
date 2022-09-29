@@ -17,7 +17,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Destinations()
+        public async Task<IActionResult> Get()
         {
             IEnumerable<DestinationDto> mList;
 
@@ -27,7 +27,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{pId}")]
-        public async Task<IActionResult> Destinations(int pId)
+        public async Task<IActionResult> Get(int pId)
         {
             var mDestination = await iDestinationService.GetDestinationById(pId);
 
@@ -35,7 +35,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Destination(InputDestinationDto pDestinationDto)
+        public async Task<IActionResult> Add(InputDestinationDto pDestinationDto)
         {
             var mResult = await iDestinationService.AddDestination(pDestinationDto);
 
@@ -50,7 +50,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Destination(DestinationDto pDestinationDto)
+        public async Task<IActionResult> Update(DestinationDto pDestinationDto)
         {
             var mResult = await iDestinationService.UpdateDestination(pDestinationDto);
 
@@ -65,7 +65,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Destination(int pId)
+        public async Task<IActionResult> Delete(int pId)
         {
             var mResult = await iDestinationService.DeleteDestination(pId);
 
