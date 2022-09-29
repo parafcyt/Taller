@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Destinations;
+﻿using Application.Dtos;
+using Application.Dtos.Destinations;
 
 namespace Application.Interfaces
 {
@@ -22,20 +23,20 @@ namespace Application.Interfaces
         /// </summary>
         /// <param name="pInputDestinationDto"></param>
         /// <returns></returns>
-        Task AddDestination(InputDestinationDto pInputDestinationDto);
+        Task<GenericOutputDto> AddDestination(InputDestinationDto pInputDestinationDto);
 
         /// <summary>
         /// Actualiza un destino
         /// </summary>
         /// <param name="pDestinationDto"></param>
         /// <returns></returns>
-        Task UpdateDestination(DestinationDto pDestinationDto);
+        Task<GenericOutputDto> UpdateDestination(DestinationDto pDestinationDto);
 
         /// <summary>
         /// Elimina un destino
         /// </summary>
         /// <param name="pId"></param>
         /// <returns></returns>
-        Task DeleteDestination(int pId);
+        Task<GenericOutputDto> DeleteDestination(int pId);
     }
 }

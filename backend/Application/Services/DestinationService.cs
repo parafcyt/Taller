@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Application.Dtos;
 
 namespace Application.Services
 {
@@ -18,24 +19,68 @@ namespace Application.Services
 
         #region Métodos públicos
 
-        public async Task AddDestination(InputDestinationDto pInputDestinationDto)
+        public async Task<GenericOutputDto> AddDestination(InputDestinationDto pInputDestinationDto)
         {
-            Destination mDestination = new Destination
+            try
             {
-                Name = pInputDestinationDto.Name,
-                Description = pInputDestinationDto.Description
-            };
+                Destination mDestination = new Destination
+                {
+                    Name = pInputDestinationDto.Name,
+                    Description = pInputDestinationDto.Description
+                };
 
-            await iDestinationRepository.AddAsync(mDestination);
+                await iDestinationRepository.AddAsync(mDestination);
+
+                return new GenericOutputDto
+                {
+                    Code = 200,
+                    Message = "Destino insertado exitosamente"
+                };
+            }
+            catch (Exception e)
+            {
+                return new GenericOutputDto
+                {
+                    Code = 500,
+                    Message = "Error al insertar Destino",
+                    Details = e.Message
+                };
+            }
         }
 
-        public async Task DeleteDestination(int pId)
+        public async Task<GenericOutputDto> DeleteDestination(int pId)
         {
-            var mDestination = await iDestinationRepository.GetByIdAsync(pId);
-
-            if (mDestination != null)
+            try
             {
-                await iDestinationRepository.DeleteAsync(mDestination);
+                var mDestination = await iDestinationRepository.GetByIdAsync(pId);
+
+                if (mDestination != null)
+                {
+                    await iDestinationRepository.DeleteAsync(mDestination);
+
+                    return new GenericOutputDto
+                    {
+                        Code = 200,
+                        Message = "Destino eliminado exitosamente"
+                    };
+                }
+                else
+                {
+                    return new GenericOutputDto
+                    {
+                        Code = 404,
+                        Message = "Destino no encontrado"
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new GenericOutputDto
+                {
+                    Code = 500,
+                    Message = "Error al eliminar Destino",
+                    Details = e.Message
+                };
             }
         }
 
@@ -76,16 +121,34 @@ namespace Application.Services
             return mListResult;
         }
 
-        public async Task UpdateDestination(DestinationDto pDestinationDto)
+        public async Task<GenericOutputDto> UpdateDestination(DestinationDto pDestinationDto)
         {
-            Destination mDestination = new Destination
+            try
             {
-                DestinationId = pDestinationDto.DestinationId,
-                Name = pDestinationDto.Name,
-                Description = pDestinationDto.Description
-            };
+                Destination mDestination = new Destination
+                {
+                    DestinationId = pDestinationDto.DestinationId,
+                    Name = pDestinationDto.Name,
+                    Description = pDestinationDto.Description
+                };
 
-            await iDestinationRepository.UpdateAsync(mDestination);
+                await iDestinationRepository.UpdateAsync(mDestination);
+
+                return new GenericOutputDto
+                {
+                    Code = 200,
+                    Message = "Destino actualizado exitosamente"
+                };
+            }
+            catch (Exception e)
+            {
+                return new GenericOutputDto
+                {
+                    Code = 500,
+                    Message = "Error al actualizar Destino",
+                    Details = e.Message
+                };
+            } 
         }
 
         #endregion

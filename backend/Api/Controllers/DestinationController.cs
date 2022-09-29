@@ -16,8 +16,6 @@ namespace Api.Controllers
             iDestinationService = pDestinationService;
         }
 
-        #region Destination
-
         [HttpGet]
         public async Task<IActionResult> Destinations()
         {
@@ -39,27 +37,48 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Destination(InputDestinationDto pDestinationDto)
         {
-            await iDestinationService.AddDestination(pDestinationDto);
+            var mResult = await iDestinationService.AddDestination(pDestinationDto);
 
-            return Ok();
+            if (mResult.Code == 200)
+            {
+                return Ok(mResult.Message);
+            }
+            else
+            {
+                return Problem(detail: mResult.Details, title: mResult.Message);
+            }
         }
 
         [HttpPut]
         public async Task<IActionResult> Destination(DestinationDto pDestinationDto)
         {
-            await iDestinationService.UpdateDestination(pDestinationDto);
+            var mResult = await iDestinationService.UpdateDestination(pDestinationDto);
 
-            return Ok();
+            if (mResult.Code == 200)
+            {
+                return Ok(mResult.Message);
+            }
+            else
+            {
+                return Problem(detail: mResult.Details, title: mResult.Message);
+            }
         }
 
         [HttpDelete]
         public async Task<IActionResult> Destination(int pId)
         {
-            await iDestinationService.DeleteDestination(pId);
+            var mResult = await iDestinationService.DeleteDestination(pId);
 
-            return Ok();
-        }
+            if (mResult.Code == 200)
+            {
+                return Ok(mResult.Message);
+            }
+            else if (mResult.Code == 404)
+            {
+                return BadRequest(mResult.Message);
+            }
 
-        #endregion  
+            return Problem(detail: mResult.Details, title: mResult.Message);
+        } 
     }
 }
