@@ -1,9 +1,11 @@
-﻿using Domain.Repositories.Base;
+﻿using Domain.Entities;
+using Domain.Repositories.Base;
 using Infraestructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,14 +20,23 @@ namespace Infraestructure.Repositories.Base
             iTallerContext = pTallerContext;
         }
 
-        public Task<T> AddAsync(T entity)
+        private async Task SaveChanges()
         {
-            throw new NotImplementedException();
+            await iTallerContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await iTallerContext.Set<T>().AddAsync(entity);
+
+            await SaveChanges();
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            iTallerContext.Entry(entity).State = EntityState.Deleted;
+
+            await SaveChanges();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -33,14 +44,16 @@ namespace Infraestructure.Repositories.Base
             return await iTallerContext.Set<T>().ToListAsync();
         }
 
-        public Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await iTallerContext.Set<T>().FindAsync(id);
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            iTallerContext.Entry(entity).State = EntityState.Modified;
+
+            await SaveChanges();
         }
     }
 }

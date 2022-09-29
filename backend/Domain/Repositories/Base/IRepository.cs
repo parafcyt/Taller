@@ -26,14 +26,14 @@ namespace Domain.Repositories.Base
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<T> AddAsync(T entity);
+        Task AddAsync(T entity);
 
         /// <summary>
         /// Actualiza un elemento/entidad
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<T> UpdateAsync(T entity);
+        Task UpdateAsync(T entity);
 
         /// <summary>
         /// Elimina un elemento/entidad
