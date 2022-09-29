@@ -1,3 +1,5 @@
+using Application.Destinations.Interfaces;
+using Application.Destinations.Services;
 using Domain.Repositories;
 using Domain.Repositories.Base;
 using Infraestructure.DataContext;
@@ -14,16 +16,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Nuestro
+
 // Connect to SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TallerContext>(options => options.UseSqlServer(connectionString));
 
-//repo generico
+// Repositorio genérico
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-//repos
+// Repositorios
 builder.Services.AddTransient<IRatingScaleRepository, RatingScaleRepository>();
+builder.Services.AddTransient<IDestinationRepository, DestinationRepository>();
 
+// Servicios
+builder.Services.AddScoped<IDestinationService, DestinationService>();
+
+#endregion
 
 var app = builder.Build();
 
