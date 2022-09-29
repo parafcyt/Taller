@@ -1,13 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Repositories.Base;
+﻿using Domain.Repositories.Base;
 using Infraestructure.DataContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infraestructure.Repositories.Base
 {
