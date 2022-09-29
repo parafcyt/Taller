@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Destinations.Dtos
+namespace Application.Dtos.Destinations
 {
     public class InputDestinationDto
     {

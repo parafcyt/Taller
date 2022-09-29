@@ -1,5 +1,4 @@
-﻿
-namespace Application.Destinations.Dtos
+﻿namespace Application.Dtos.Destinations
 {
     public class DestinationDto
     {

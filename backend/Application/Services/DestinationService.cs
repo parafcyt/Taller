@@ -1,11 +1,11 @@
-﻿using Application.Destinations.Dtos;
-using Application.Destinations.Interfaces;
+﻿using Application.Interfaces;
+using Application.Dtos.Destinations;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Application.Destinations.Services
+namespace Application.Services
 {
     public class DestinationService : IDestinationService
     {

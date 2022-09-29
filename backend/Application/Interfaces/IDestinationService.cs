@@ -1,6 +1,6 @@
-﻿using Application.Destinations.Dtos;
+﻿using Application.Dtos.Destinations;
 
-namespace Application.Destinations.Interfaces
+namespace Application.Interfaces
 {
     public interface IDestinationService
     {

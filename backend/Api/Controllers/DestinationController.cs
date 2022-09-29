@@ -1,5 +1,5 @@
-﻿using Application.Destinations.Dtos;
-using Application.Destinations.Interfaces;
+﻿using Application.Interfaces;
+using Application.Dtos.Destinations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

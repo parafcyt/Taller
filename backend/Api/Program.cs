@@ -1,5 +1,5 @@
-using Application.Destinations.Interfaces;
-using Application.Destinations.Services;
+using Application.Interfaces;
+using Application.Services;
 using Domain.Repositories;
 using Domain.Repositories.Base;
 using Infraestructure.DataContext;
