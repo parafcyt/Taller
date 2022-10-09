@@ -1,3 +1,4 @@
+using Api.GraphQL.Destinations;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Repositories;
@@ -32,6 +33,26 @@ builder.Services.AddTransient<IDestinationRepository, DestinationRepository>();
 // Servicios
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 
+// GraphQL
+builder.Services.AddGraphQLServer()
+    .RegisterDbContext<TallerContext>()
+
+#region Querys
+
+    .AddQueryType(t => t.Name("Query"))
+        .AddType<DestinationQueryType>()
+
+#endregion
+
+#region Mutations
+
+    .AddMutationType()
+        .AddTypeExtension<DestinationMutation>()
+
+#endregion
+
+    .AddProjections();
+
 #endregion
 
 var app = builder.Build();
@@ -48,5 +69,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGraphQL();
 
 app.Run();

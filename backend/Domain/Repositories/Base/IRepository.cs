@@ -36,5 +36,7 @@ namespace Domain.Repositories.Base
         /// <param name="entity"></param>
         /// <returns></returns>
         Task DeleteAsync(T entity);
+
+        IQueryable<T> AsQueryable();
     }
 }

@@ -48,5 +48,10 @@ namespace Infraestructure.Repositories.Base
 
             await SaveChanges();
         }
+
+        public IQueryable<T> AsQueryable()
+        {
+            return iTallerContext.Set<T>().AsQueryable();
+        }
     }
 }

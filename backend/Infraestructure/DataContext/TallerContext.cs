@@ -8,9 +8,9 @@ namespace Infraestructure.DataContext
 {
     public partial class TallerContext : DbContext
     {
-        public TallerContext()
-        {
-        }
+        //public TallerContext()
+        //{
+        //}
 
         public TallerContext(DbContextOptions<TallerContext> options)
             : base(options)
