@@ -1,6 +1,6 @@
 ﻿namespace Application.Dtos.Destinations
 {
-    public class DestinationDto
+    public class UpdateDestinationInputDto
     {
         public int DestinationId { get; set; }
         public string Name { get; set; } = null!;

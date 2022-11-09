@@ -2,7 +2,7 @@
 
 namespace Application.Dtos.Destinations
 {
-    public class InputDestinationDto
+    public class CreateDestinationInputDto
     {
         [Required]
         public string Name { get; set; } = null!;

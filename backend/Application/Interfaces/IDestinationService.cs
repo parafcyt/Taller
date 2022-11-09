@@ -1,5 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Dtos.Destinations;
+using Domain.Entities;
 
 namespace Application.Interfaces
 {
@@ -10,33 +11,33 @@ namespace Application.Interfaces
         /// </summary>
         /// <param name="pId"></param>
         /// <returns></returns>
-        Task<DestinationDto?> GetDestinationById(int pId);
+        Task<Destination?> GetDestinationById(int pId);
 
         /// <summary>
         /// Obtiene todos los destinos
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<DestinationDto>> GetDestinations();
+        IQueryable<Destination> GetDestinations();
 
         /// <summary>
         /// Agrega un destino
         /// </summary>
         /// <param name="pInputDestinationDto"></param>
         /// <returns></returns>
-        Task<GenericOutputDto> AddDestination(InputDestinationDto pInputDestinationDto);
+        Task<Destination> AddDestination(CreateDestinationInputDto pInputDestinationDto);
 
         /// <summary>
         /// Actualiza un destino
         /// </summary>
         /// <param name="pDestinationDto"></param>
         /// <returns></returns>
-        Task<GenericOutputDto> UpdateDestination(DestinationDto pDestinationDto);
+        Task<Destination> UpdateDestination(UpdateDestinationInputDto pDestinationDto);
 
         /// <summary>
         /// Elimina un destino
         /// </summary>
         /// <param name="pId"></param>
         /// <returns></returns>
-        Task<GenericOutputDto> DeleteDestination(int pId);
+        Task DeleteDestination(int pId);
     }
 }

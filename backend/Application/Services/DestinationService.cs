@@ -1,154 +1,56 @@
 ﻿using Application.Interfaces;
 using Application.Dtos.Destinations;
 using Domain.Entities;
-using Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Application.Dtos;
+using Domain.Repositories.Base;
+using AutoMapper;
 
 namespace Application.Services
 {
     public class DestinationService : IDestinationService
     {
-        private readonly IDestinationRepository iDestinationRepository;
+        private readonly IRepository<Destination> iDestinationRepository;
+        private readonly IMapper iMapper;
 
-        public DestinationService(IDestinationRepository pDestinationRepository)
+        public DestinationService(IRepository<Destination> pDestinationRepository, IMapper pMapper)
         {
             iDestinationRepository = pDestinationRepository;
+            iMapper = pMapper;
         }
 
         #region Métodos públicos
 
-        public async Task<GenericOutputDto> AddDestination(InputDestinationDto pInputDestinationDto)
+        public async Task<Destination> AddDestination(CreateDestinationInputDto pInputDestinationDto)
         {
-            try
-            {
-                Destination mDestination = new Destination
-                {
-                    Name = pInputDestinationDto.Name,
-                    Description = pInputDestinationDto.Description
-                };
+            Destination mDestination = iMapper.Map<CreateDestinationInputDto, Destination>(pInputDestinationDto);
 
-                await iDestinationRepository.AddAsync(mDestination);
-
-                return new GenericOutputDto
-                {
-                    Code = 200,
-                    Message = "Destino insertado exitosamente"
-                };
-            }
-            catch (Exception e)
-            {
-                return new GenericOutputDto
-                {
-                    Code = 500,
-                    Message = "Error al insertar Destino",
-                    Details = e.Message
-                };
-            }
+            return await iDestinationRepository.AddAsync(mDestination);
         }
 
-        public async Task<GenericOutputDto> DeleteDestination(int pId)
+        public async Task DeleteDestination(int pId)
         {
-            try
-            {
-                var mDestination = await iDestinationRepository.GetByIdAsync(pId);
-
-                if (mDestination != null)
-                {
-                    await iDestinationRepository.DeleteAsync(mDestination);
-
-                    return new GenericOutputDto
-                    {
-                        Code = 200,
-                        Message = "Destino eliminado exitosamente"
-                    };
-                }
-                else
-                {
-                    return new GenericOutputDto
-                    {
-                        Code = 404,
-                        Message = "Destino no encontrado"
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return new GenericOutputDto
-                {
-                    Code = 500,
-                    Message = "Error al eliminar Destino",
-                    Details = e.Message
-                };
-            }
-        }
-
-        public async Task<DestinationDto?> GetDestinationById(int pId)
-        {
-            var mDestination = await iDestinationRepository.GetByIdAsync(pId);
+            Destination? mDestination = await iDestinationRepository.GetByIdAsync(pId);
 
             if (mDestination != null)
             {
-                return new DestinationDto
-                {
-                    DestinationId = mDestination.DestinationId,
-                    Name = mDestination.Name,
-                    Description = mDestination.Description
-                };
+                await iDestinationRepository.DeleteAsync(mDestination);
             }
-
-            return null;
         }
 
-        public async Task<IEnumerable<DestinationDto>> GetDestinations()
+        public async Task<Destination?> GetDestinationById(int pId)
         {
-            var mList = await iDestinationRepository.GetAllAsync();
-
-            var mListResult = new List<DestinationDto>();
-
-            foreach (var bDestination in mList)
-            {
-                mListResult.Add(
-                    new DestinationDto
-                    {
-                        DestinationId = bDestination.DestinationId,
-                        Name = bDestination.Name,
-                        Description = bDestination.Description
-                    });
-            }
-
-            return mListResult;
+            return await iDestinationRepository.GetByIdAsync(pId);
         }
 
-        public async Task<GenericOutputDto> UpdateDestination(DestinationDto pDestinationDto)
+        public IQueryable<Destination> GetDestinations()
         {
-            try
-            {
-                Destination mDestination = new Destination
-                {
-                    DestinationId = pDestinationDto.DestinationId,
-                    Name = pDestinationDto.Name,
-                    Description = pDestinationDto.Description
-                };
+            return iDestinationRepository.AsQueryable();
+        }
 
-                await iDestinationRepository.UpdateAsync(mDestination);
+        public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pDestinationDto)
+        {
+            Destination mDestination = iMapper.Map<UpdateDestinationInputDto, Destination>(pDestinationDto);
 
-                return new GenericOutputDto
-                {
-                    Code = 200,
-                    Message = "Destino actualizado exitosamente"
-                };
-            }
-            catch (Exception e)
-            {
-                return new GenericOutputDto
-                {
-                    Code = 500,
-                    Message = "Error al actualizar Destino",
-                    Details = e.Message
-                };
-            } 
+            return await iDestinationRepository.UpdateAsync(mDestination);
         }
 
         #endregion

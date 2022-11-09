@@ -1,16 +1,25 @@
 using Api.GraphQL.Destinations;
 using Application.Interfaces;
 using Application.Services;
-using Domain.Repositories;
 using Domain.Repositories.Base;
 using Infraestructure.DataContext;
-using Infraestructure.Repositories;
 using Infraestructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+
+string cCORSOpenPolicy = "OpenCORSPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: cCORSOpenPolicy,
+                      policy =>
+                      {
+                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                      });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,6 +27,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Nuestro
+
+// Automapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Connect to SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -27,31 +39,12 @@ builder.Services.AddDbContext<TallerContext>(options => options.UseSqlServer(con
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // Repositorios
-builder.Services.AddTransient<IRatingScaleRepository, RatingScaleRepository>();
-builder.Services.AddTransient<IDestinationRepository, DestinationRepository>();
 
 // Servicios
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 
 // GraphQL
-builder.Services.AddGraphQLServer()
-    .RegisterDbContext<TallerContext>()
-
-#region Querys
-
-    .AddQueryType(t => t.Name("Query"))
-        .AddType<DestinationQueryType>()
-
-#endregion
-
-#region Mutations
-
-    .AddMutationType()
-        .AddTypeExtension<DestinationMutation>()
-
-#endregion
-
-    .AddProjections();
+ConfigureGraphQl(builder.Services);
 
 #endregion
 
@@ -66,6 +59,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(cCORSOpenPolicy);
+
 app.UseAuthorization();
 
 app.MapControllers();
@@ -73,3 +68,20 @@ app.MapControllers();
 app.MapGraphQL();
 
 app.Run();
+
+void ConfigureGraphQl(IServiceCollection services)
+{
+    services.AddGraphQLServer()
+    .RegisterDbContext<TallerContext>()
+
+    // QUERYS
+    .AddQueryType(t => t.Name("Query"))
+        .AddType<DestinationQueryType>()
+
+    // MUTATION
+    .AddMutationType()
+        .AddTypeExtension<DestinationMutation>()
+
+    // OTROS
+    .AddProjections();
+}

@@ -18,17 +18,17 @@ namespace Infraestructure.Repositories.Base
             await iTallerContext.SaveChangesAsync();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await iTallerContext.Set<T>().AddAsync(entity);
-
             await SaveChanges();
+
+            return entity;
         }
 
         public async Task DeleteAsync(T entity)
         {
-            iTallerContext.Entry(entity).State = EntityState.Deleted;
-
+            iTallerContext.Set<T>().Remove(entity);
             await SaveChanges();
         }
 
@@ -42,11 +42,12 @@ namespace Infraestructure.Repositories.Base
             return await iTallerContext.Set<T>().FindAsync(id);
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            iTallerContext.Entry(entity).State = EntityState.Modified;
-
+            iTallerContext.Set<T>().Update(entity);
             await SaveChanges();
+
+            return entity;
         }
 
         public IQueryable<T> AsQueryable()

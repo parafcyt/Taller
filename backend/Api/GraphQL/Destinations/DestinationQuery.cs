@@ -1,16 +1,15 @@
-﻿using Domain.Entities;
-using Domain.Repositories.Base;
-using Infraestructure.DataContext;
+﻿using Application.Interfaces;
+using Domain.Entities;
 
 namespace Api.GraphQL.Destinations
 {
     public class DestinationQuery
     {
-        private readonly IRepository<Destination> iDestinationRepository;
+        private readonly IDestinationService iDestinationService;
 
-        public DestinationQuery([Service] IRepository<Destination> pDestinationRepository)
+        public DestinationQuery([Service] IDestinationService pDestinationService)
         {
-            iDestinationRepository = pDestinationRepository;
+            iDestinationService = pDestinationService;
         }
 
         /// <summary>
@@ -20,18 +19,19 @@ namespace Api.GraphQL.Destinations
         [UseProjection]
         public IQueryable<Destination> GetDestinations()
         {
-            return iDestinationRepository.AsQueryable();
+            //return iDestinationRepository.AsQueryable();
+            return iDestinationService.GetDestinations();
         }
 
         /// <summary>
         /// Obtiene un destino por Id
         /// </summary>
-        /// <param name="pId"></param>
+        /// <param name="pId">identificador</param>
         /// <returns></returns>
         [UseProjection]
         public async Task<Destination?> GetDestination(int pId)
         {
-            return await iDestinationRepository.GetByIdAsync(pId);
+            return await iDestinationService.GetDestinationById(pId);
         }
     }
 }
