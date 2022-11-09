@@ -19,7 +19,6 @@ namespace Api.GraphQL.Destinations
         [UseProjection]
         public IQueryable<Destination> GetDestinations()
         {
-            //return iDestinationRepository.AsQueryable();
             return iDestinationService.GetDestinations();
         }
 

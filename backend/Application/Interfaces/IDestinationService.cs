@@ -24,14 +24,14 @@ namespace Application.Interfaces
         /// </summary>
         /// <param name="pInputDestinationDto"></param>
         /// <returns></returns>
-        Task<Destination> AddDestination(CreateDestinationInputDto pInputDestinationDto);
+        Task<Destination> AddDestination(CreateDestinationInputDto pInput);
 
         /// <summary>
         /// Actualiza un destino
         /// </summary>
         /// <param name="pDestinationDto"></param>
         /// <returns></returns>
-        Task<Destination> UpdateDestination(UpdateDestinationInputDto pDestinationDto);
+        Task<Destination> UpdateDestination(UpdateDestinationInputDto pInput);
 
         /// <summary>
         /// Elimina un destino

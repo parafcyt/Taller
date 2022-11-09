@@ -19,9 +19,9 @@ namespace Application.Services
 
         #region Métodos públicos
 
-        public async Task<Destination> AddDestination(CreateDestinationInputDto pInputDestinationDto)
+        public async Task<Destination> AddDestination(CreateDestinationInputDto pInput)
         {
-            Destination mDestination = iMapper.Map<CreateDestinationInputDto, Destination>(pInputDestinationDto);
+            Destination mDestination = iMapper.Map<Destination>(pInput);
 
             return await iDestinationRepository.AddAsync(mDestination);
         }
@@ -46,9 +46,9 @@ namespace Application.Services
             return iDestinationRepository.AsQueryable();
         }
 
-        public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pDestinationDto)
+        public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pInput)
         {
-            Destination mDestination = iMapper.Map<UpdateDestinationInputDto, Destination>(pDestinationDto);
+            Destination mDestination = iMapper.Map<Destination>(pInput);
 
             return await iDestinationRepository.UpdateAsync(mDestination);
         }

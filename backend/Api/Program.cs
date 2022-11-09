@@ -1,4 +1,5 @@
 using Api.GraphQL.Destinations;
+using Api.GraphQL.Hotels;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Repositories.Base;
@@ -35,13 +36,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TallerContext>(options => options.UseSqlServer(connectionString));
 
-// Repositorio genérico
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
 // Repositorios
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // Servicios
 builder.Services.AddScoped<IDestinationService, DestinationService>();
+builder.Services.AddScoped<IHotelService, HotelService>();
 
 // GraphQL
 ConfigureGraphQl(builder.Services);
@@ -77,10 +77,12 @@ void ConfigureGraphQl(IServiceCollection services)
     // QUERYS
     .AddQueryType(t => t.Name("Query"))
         .AddType<DestinationQueryType>()
+        .AddType<HotelQueryType>()
 
     // MUTATION
     .AddMutationType()
         .AddTypeExtension<DestinationMutation>()
+        .AddTypeExtension<HotelMutation>()
 
     // OTROS
     .AddProjections();

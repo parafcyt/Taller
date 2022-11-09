@@ -1,11 +1,7 @@
 ﻿using Application.Dtos.Destinations;
+using Application.Dtos.Hotels;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Mappers
 {
@@ -15,6 +11,8 @@ namespace Application.Mappers
         {
             CreateMap<CreateDestinationInputDto, Destination>();
             CreateMap<UpdateDestinationInputDto, Destination>();
+            CreateMap<CreateHotelInputDto, Hotel>();
+            CreateMap<UpdateHotelInputDto, Hotel>();
         }
     }
 }
