@@ -43,6 +43,12 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 builder.Services.AddScoped<IHotelService, HotelService>();
 
+// Queries y Mutations
+builder.Services.AddScoped<DestinationQuery>();
+builder.Services.AddScoped<DestinationMutation>();
+builder.Services.AddScoped<HotelQuery>();
+builder.Services.AddScoped<HotelMutation>();
+
 // GraphQL
 ConfigureGraphQl(builder.Services);
 
