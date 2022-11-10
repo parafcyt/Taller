@@ -32,5 +32,17 @@ namespace Api.GraphQL.Destinations
         {
             return await iDestinationService.GetDestinationById(pId);
         }
+
+        [UseProjection]
+        public IQueryable<DestinationPhoto> GetDestinationPhotos()
+        {
+            return iDestinationService.GetDestinationPhotos();
+        }
+
+        [UseProjection]
+        public async Task<DestinationPhoto?> GetDestinationPhoto(int pId)
+        {
+            return await iDestinationService.GetDestinationPhotoById(pId);
+        }
     }
 }

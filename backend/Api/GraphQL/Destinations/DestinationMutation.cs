@@ -51,5 +51,20 @@ namespace Api.GraphQL.Destinations
         {
             await iDestinationService.DeleteDestination(pId);
         }
+
+        public async Task<DestinationPhoto> AddDestinationPhoto(CreateDestinationPhotoInputDto pInput)
+        {
+            return await iDestinationService.AddDestinationPhoto(pInput);
+        }
+
+        public async Task<DestinationPhoto> UpdateDestinationPhoto(UpdateDestinationPhotoInputDto pInput)
+        {
+            return await iDestinationService.UpdateDestinationPhoto(pInput);
+        }
+
+        public async Task DeleteDestinationPhoto(int pId)
+        {
+            await iDestinationService.DeleteDestinationPhoto(pId);
+        }
     }
 }

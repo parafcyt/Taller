@@ -39,5 +39,16 @@ namespace Application.Interfaces
         /// <param name="pId"></param>
         /// <returns></returns>
         Task DeleteDestination(int pId);
+
+
+        Task<DestinationPhoto?> GetDestinationPhotoById(int pId);
+
+        IQueryable<DestinationPhoto> GetDestinationPhotos();
+
+        Task<DestinationPhoto> AddDestinationPhoto(CreateDestinationPhotoInputDto pInput);
+
+        Task<DestinationPhoto> UpdateDestinationPhoto(UpdateDestinationPhotoInputDto pInput);
+
+        Task DeleteDestinationPhoto(int pId);
     }
 }

@@ -12,6 +12,9 @@ namespace Application.Mappers
             CreateMap<CreateDestinationInputDto, Destination>();
             CreateMap<UpdateDestinationInputDto, Destination>();
 
+            CreateMap<CreateDestinationPhotoInputDto, DestinationPhoto>();
+            CreateMap<UpdateDestinationPhotoInputDto, DestinationPhoto>();
+
             CreateMap<CreateHotelInputDto, Hotel>();
             CreateMap<UpdateHotelInputDto, Hotel>();
 
