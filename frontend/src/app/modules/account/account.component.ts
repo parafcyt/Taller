@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth, authState, signInAnonymously, signOut, User, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: Auth) { }
 
   ngOnInit(): void {
+    signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
 }
