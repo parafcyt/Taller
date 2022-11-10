@@ -28,5 +28,20 @@ namespace Api.GraphQL.Hotels
         {
             await iHotelService.DeleteHotel(pId);
         }
+
+        public async Task<HotelPhoto> AddHotelPhoto(CreateHotelPhotoInputDto pInput)
+        {
+            return await iHotelService.AddHotelPhoto(pInput);
+        }
+
+        public async Task<HotelPhoto> UpdateHotelPhoto(UpdateHotelPhotoInputDto pInput)
+        {
+            return await iHotelService.UpdateHotelPhoto(pInput);
+        }
+
+        public async Task DeleteHotelPhoto(int pId)
+        {
+            await iHotelService.DeleteHotel(pId);
+        }
     }
 }

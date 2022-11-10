@@ -14,5 +14,16 @@ namespace Application.Interfaces
         Task<Hotel> UpdateHotel(UpdateHotelInputDto pInput);
 
         Task DeleteHotel(int pId);
+
+
+        Task<HotelPhoto?> GetHotelPhotoById(int pId);
+
+        IQueryable<HotelPhoto> GetHotelPhotos();
+
+        Task<HotelPhoto> AddHotelPhoto(CreateHotelPhotoInputDto pInput);
+
+        Task<HotelPhoto> UpdateHotelPhoto(UpdateHotelPhotoInputDto pInput);
+
+        Task DeleteHotelPhoto(int pId);
     }
 }

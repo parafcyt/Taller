@@ -52,7 +52,7 @@ namespace Infraestructure.Repositories.Base
 
         public IQueryable<T> AsQueryable()
         {
-            return iTallerContext.Set<T>().AsQueryable();
+            return iTallerContext.Set<T>().AsNoTracking();
         }
     }
 }

@@ -23,5 +23,17 @@ namespace Api.GraphQL.Hotels
         {
             return await iHotelService.GetHotelById(pId);
         }
+
+        [UseProjection]
+        public IQueryable<HotelPhoto> GetHotelPhotos()
+        {
+            return iHotelService.GetHotelPhotos();
+        }
+
+        [UseProjection]
+        public async Task<HotelPhoto?> GetHotelPhoto(int pId)
+        {
+            return await iHotelService.GetHotelPhotoById(pId);
+        }
     }
 }
