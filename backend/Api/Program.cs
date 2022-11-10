@@ -1,5 +1,6 @@
 using Api.GraphQL.Destinations;
 using Api.GraphQL.Hotels;
+using Api.GraphQL.Transports;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Repositories.Base;
@@ -40,14 +41,15 @@ builder.Services.AddDbContext<TallerContext>(options => options.UseSqlServer(con
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // Servicios
-builder.Services.AddScoped<IDestinationService, DestinationService>();
-builder.Services.AddScoped<IHotelService, HotelService>();
+builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 
 // Queries y Mutations
 builder.Services.AddScoped<DestinationQuery>();
 builder.Services.AddScoped<DestinationMutation>();
 builder.Services.AddScoped<HotelQuery>();
 builder.Services.AddScoped<HotelMutation>();
+builder.Services.AddScoped<TransportQuery>();
+builder.Services.AddScoped<TransportMutation>();
 
 // GraphQL
 ConfigureGraphQl(builder.Services);
@@ -84,11 +86,13 @@ void ConfigureGraphQl(IServiceCollection services)
     .AddQueryType(t => t.Name("Query"))
         .AddType<DestinationQueryType>()
         .AddType<HotelQueryType>()
+        .AddType<TransportQueryType>()
 
     // MUTATION
     .AddMutationType()
         .AddTypeExtension<DestinationMutation>()
         .AddTypeExtension<HotelMutation>()
+        .AddTypeExtension<TransportMutation>()
 
     // OTROS
     .AddProjections();

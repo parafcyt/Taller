@@ -1,9 +1,10 @@
-﻿using Application.Dtos.Destinations;
-using Application.Dtos.Hotels;
+﻿using Api.Dtos.Destinations;
+using Api.Dtos.Hotels;
+using Api.Dtos.Transports;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Mappers
+namespace Api.Mappers
 {
     public class AutoMapper : Profile
     {
@@ -20,6 +21,9 @@ namespace Application.Mappers
 
             CreateMap<CreateHotelPhotoInputDto, HotelPhoto>();
             CreateMap<UpdateHotelPhotoInputDto, HotelPhoto>();
+
+            CreateMap<CreateTransportInputDto, Transport>();
+            CreateMap<UpdateTransportInputDto, Transport>();
         }
     }
 }

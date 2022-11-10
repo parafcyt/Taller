@@ -1,15 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dtos.Hotels
+namespace Api.Dtos.Destinations
 {
-    public class CreateHotelPhotoInputDto
+    public class UpdateDestinationPhotoInputDto
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public string Url { get; set; } = null!;
 
         public string Description { get; set; } = null!;
 
         [Required]
-        public int HotelId { get; set; }
+        public int DestinationId { get; set; }
     }
 }

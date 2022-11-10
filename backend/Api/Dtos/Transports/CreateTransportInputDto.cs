@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dtos.Destinations
+namespace Api.Dtos.Transports
 {
-    public class CreateDestinationInputDto
+    public class CreateTransportInputDto
     {
         [Required]
         public string Name { get; set; } = null!;
-
-        public string? Description { get; set; }
     }
 }

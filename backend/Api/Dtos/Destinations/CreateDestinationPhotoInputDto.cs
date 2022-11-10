@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dtos.Destinations
+namespace Api.Dtos.Destinations
 {
-    public class UpdateDestinationPhotoInputDto
+    public class CreateDestinationPhotoInputDto
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required]
         public string Url { get; set; } = null!;
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dtos.Hotels
+namespace Api.Dtos.Hotels
 {
     public class UpdateHotelInputDto
     {

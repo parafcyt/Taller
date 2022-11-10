@@ -1,5 +1,6 @@
-﻿using Application.Dtos.Hotels;
+﻿using Api.Dtos.Hotels;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 
 namespace Api.GraphQL.Hotels
@@ -7,41 +8,58 @@ namespace Api.GraphQL.Hotels
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class HotelMutation
     {
-        private readonly IHotelService iHotelService;
+        private readonly IBaseService<Hotel> iHotelService;
+        private readonly IBaseService<HotelPhoto> iHotelPhotoService;
 
-        public HotelMutation([Service] IHotelService pHotelService)
+        private readonly IMapper iMapper;
+
+        public HotelMutation(
+            [Service] IBaseService<Hotel> pHotelService,
+            [Service] IBaseService<HotelPhoto> pHotelPhotoService,
+            IMapper pMapper)
         {
             iHotelService = pHotelService;
+            iHotelPhotoService = pHotelPhotoService;
+
+            iMapper = pMapper;
         }
 
         public async Task<Hotel> AddHotel(CreateHotelInputDto pInput)
         {
-            return await iHotelService.AddHotel(pInput);
+            var mHotel = iMapper.Map<Hotel>(pInput);
+
+            return await iHotelService.AddAsync(mHotel);
         }
 
         public async Task<Hotel> UpdateHotel(UpdateHotelInputDto pInput)
         {
-            return await iHotelService.UpdateHotel(pInput);
+            var mHotel = iMapper.Map<Hotel>(pInput);
+
+            return await iHotelService.UpdateAsync(mHotel);
         }
 
         public async Task DeleteHotel(int pId)
         {
-            await iHotelService.DeleteHotel(pId);
+            await iHotelService.DeleteAsync(pId);
         }
 
         public async Task<HotelPhoto> AddHotelPhoto(CreateHotelPhotoInputDto pInput)
         {
-            return await iHotelService.AddHotelPhoto(pInput);
+            var mHotelPhoto = iMapper.Map<HotelPhoto>(pInput);
+
+            return await iHotelPhotoService.AddAsync(mHotelPhoto);
         }
 
         public async Task<HotelPhoto> UpdateHotelPhoto(UpdateHotelPhotoInputDto pInput)
         {
-            return await iHotelService.UpdateHotelPhoto(pInput);
+            var mHotelPhoto = iMapper.Map<HotelPhoto>(pInput);
+
+            return await iHotelPhotoService.UpdateAsync(mHotelPhoto);
         }
 
         public async Task DeleteHotelPhoto(int pId)
         {
-            await iHotelService.DeleteHotel(pId);
+            await iHotelPhotoService.DeleteAsync(pId);
         }
     }
 }

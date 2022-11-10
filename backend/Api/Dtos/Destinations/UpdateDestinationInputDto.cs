@@ -1,4 +1,4 @@
-﻿namespace Application.Dtos.Destinations
+﻿namespace Api.Dtos.Destinations
 {
     public class UpdateDestinationInputDto
     {

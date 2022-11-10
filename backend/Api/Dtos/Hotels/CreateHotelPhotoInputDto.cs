@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Dtos.Destinations
+namespace Api.Dtos.Hotels
 {
-    public class CreateDestinationPhotoInputDto
+    public class CreateHotelPhotoInputDto
     {
         [Required]
         public string Url { get; set; } = null!;
@@ -10,6 +10,6 @@ namespace Application.Dtos.Destinations
         public string Description { get; set; } = null!;
 
         [Required]
-        public int DestinationId { get; set; }
+        public int HotelId { get; set; }
     }
 }

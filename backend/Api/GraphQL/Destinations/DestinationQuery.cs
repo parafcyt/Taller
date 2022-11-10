@@ -5,11 +5,15 @@ namespace Api.GraphQL.Destinations
 {
     public class DestinationQuery
     {
-        private readonly IDestinationService iDestinationService;
+        private readonly IBaseService<Destination> iDestinationService;
+        private readonly IBaseService<DestinationPhoto> iDestinationPhotoService;
 
-        public DestinationQuery([Service] IDestinationService pDestinationService)
+        public DestinationQuery(
+            [Service] IBaseService<Destination> pDestinationService,
+            [Service] IBaseService<DestinationPhoto> pDestinationPhotoService)
         {
             iDestinationService = pDestinationService;
+            iDestinationPhotoService = pDestinationPhotoService;
         }
 
         /// <summary>
@@ -19,7 +23,7 @@ namespace Api.GraphQL.Destinations
         [UseProjection]
         public IQueryable<Destination> GetDestinations()
         {
-            return iDestinationService.GetDestinations();
+            return iDestinationService.GetAllAsync();
         }
 
         /// <summary>
@@ -30,19 +34,19 @@ namespace Api.GraphQL.Destinations
         [UseProjection]
         public async Task<Destination?> GetDestination(int pId)
         {
-            return await iDestinationService.GetDestinationById(pId);
+            return await iDestinationService.GetByIdAsync(pId);
         }
 
         [UseProjection]
         public IQueryable<DestinationPhoto> GetDestinationPhotos()
         {
-            return iDestinationService.GetDestinationPhotos();
+            return iDestinationPhotoService.GetAllAsync();
         }
 
         [UseProjection]
         public async Task<DestinationPhoto?> GetDestinationPhoto(int pId)
         {
-            return await iDestinationService.GetDestinationPhotoById(pId);
+            return await iDestinationPhotoService.GetByIdAsync(pId);
         }
     }
 }

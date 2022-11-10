@@ -1,5 +1,6 @@
-﻿using Application.Dtos.Destinations;
+﻿using Api.Dtos.Destinations;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 using HotChocolate.Execution;
 
@@ -8,11 +9,20 @@ namespace Api.GraphQL.Destinations
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class DestinationMutation
     {
-        private readonly IDestinationService iDestinationService;
+        private readonly IBaseService<Destination> iDestinationService;
+        private readonly IBaseService<DestinationPhoto> iDestinationPhotoService;
 
-        public DestinationMutation([Service] IDestinationService pDestinationService)
+        private readonly IMapper iMapper;
+
+        public DestinationMutation(
+            [Service] IBaseService<Destination> pDestinationService,
+            [Service] IBaseService<DestinationPhoto> pDestinationPhotoService,
+            IMapper pMapper)
         {
             iDestinationService = pDestinationService;
+            iDestinationPhotoService = pDestinationPhotoService;
+
+            iMapper = pMapper;
         }
 
         /// <summary>
@@ -28,7 +38,9 @@ namespace Api.GraphQL.Destinations
                 throw new QueryException(ErrorBuilder.New().SetMessage("").SetCode("").Build());
             }
 
-            return await iDestinationService.AddDestination(pInput);
+            var mDestination = iMapper.Map<Destination>(pInput);
+
+            return await iDestinationService.AddAsync(mDestination);
         }
 
         /// <summary>
@@ -38,8 +50,9 @@ namespace Api.GraphQL.Destinations
         /// <returns></returns>
         public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pInput)
         {
-            //TODO: Hacer validaciones
-            return await iDestinationService.UpdateDestination(pInput);
+            var mDestination = iMapper.Map<Destination>(pInput);
+
+            return await iDestinationService.UpdateAsync(mDestination);
         }
 
         /// <summary>
@@ -49,22 +62,26 @@ namespace Api.GraphQL.Destinations
         /// <returns></returns>
         public async Task DeleteDestination(int pId)
         {
-            await iDestinationService.DeleteDestination(pId);
+            await iDestinationService.DeleteAsync(pId);
         }
 
         public async Task<DestinationPhoto> AddDestinationPhoto(CreateDestinationPhotoInputDto pInput)
         {
-            return await iDestinationService.AddDestinationPhoto(pInput);
+            var mDestinationPhoto = iMapper.Map<DestinationPhoto>(pInput);
+
+            return await iDestinationPhotoService.AddAsync(mDestinationPhoto);
         }
 
         public async Task<DestinationPhoto> UpdateDestinationPhoto(UpdateDestinationPhotoInputDto pInput)
         {
-            return await iDestinationService.UpdateDestinationPhoto(pInput);
+            var mDestinationPhoto = iMapper.Map<DestinationPhoto>(pInput);
+
+            return await iDestinationPhotoService.UpdateAsync(mDestinationPhoto);
         }
 
         public async Task DeleteDestinationPhoto(int pId)
         {
-            await iDestinationService.DeleteDestinationPhoto(pId);
+            await iDestinationPhotoService.DeleteAsync(pId);
         }
     }
 }
