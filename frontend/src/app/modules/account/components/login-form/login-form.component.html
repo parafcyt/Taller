@@ -1,0 +1,36 @@
+<form class="form" [formGroup]="iForm">
+    <mat-form-field>
+        <mat-label>Correo</mat-label>
+        <input matInput formControlName="email" type="text" required />
+        <mat-error *ngIf="email?.hasError('required')">
+            El correo es requerido.
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('email')">
+            El correo no es válido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password" required />
+        <mat-error *ngIf="password?.hasError('required')">
+            La contraseña es requerida
+        </mat-error>
+    </mat-form-field>
+    <div class="form-footer">
+        <button [disabled]="iForm.invalid" mat-raised-button (click)="onEmail()">
+            Ingresar
+        </button>
+
+        <br><br>
+
+        <button mat-raised-button (click)="onGoogle()">
+            Ingresar con Google
+        </button>
+
+        <br><br>
+
+        <button mat-raised-button (click)="onFacebook()">
+            Ingresar con Facebook
+        </button>
+    </div>
+</form>
