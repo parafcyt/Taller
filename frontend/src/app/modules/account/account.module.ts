@@ -9,6 +9,7 @@ import { AccountComponent } from './account.component';
 import { LoginFormComponent } from "./components/login-form/login-form.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { CompleteRegistrationComponent } from './pages/complete-registration/complete-registration.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 
 
@@ -17,7 +18,8 @@ import { CompleteRegistrationComponent } from './pages/complete-registration/com
     AccountComponent,
     LoginFormComponent,
     LoginPageComponent,
-    CompleteRegistrationComponent
+    CompleteRegistrationComponent,
+    RegisterPageComponent
   ],
   imports: [
     CommonModule,

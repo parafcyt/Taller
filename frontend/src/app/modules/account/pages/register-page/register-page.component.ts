@@ -7,23 +7,23 @@ import { LoginData } from '../../models/loginData';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  selector: 'app-register-page',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['./register-page.component.css']
 })
-export class LoginPageComponent implements OnInit, IValidateRegistration {
+export class RegisterPageComponent implements OnInit, IValidateRegistration {
 
-  mShowText: LoginType = LoginType.Login;
+  mShowText: LoginType = LoginType.Registration;
 
   constructor(
     private readonly iAuthService: AuthService,
     private readonly iRouter: Router
   ) { }
-
+  
   ngOnInit(): void {
   }
 
-  loginWithMail(loginData: LoginData) {
+  registerWithMail(loginData: LoginData) {
 
     this.iAuthService
       .loginWithMail(loginData)
@@ -47,23 +47,11 @@ export class LoginPageComponent implements OnInit, IValidateRegistration {
       .catch((e) => console.log(e));
   }
 
-  loginWithTwitter() {
-
-    this.iAuthService
-      .loginWithTwitter()
-      .then((pUser: UserCredential) => this.validateRegistration(pUser))
-      .catch((e) => console.log(e));
-  }
-
-  validateRegistration(pUser: UserCredential) {
-
+  validateRegistration(pUser: UserCredential): void {
+    
     console.log(pUser);
 
-    // TODO: Validar si el usuario completó sus datos y está en la bbdd local
-    // en caso de registro, navegar a la pagina para completar sus datos
+    // El usuario se está registrando, asi que siempre navega a /complete-registration
     this.iRouter.navigate(['/complete-registration']);
-
-    // en caso contrario, navegar al home
-    //this.iRouter.navigate(['/home']);
   }
 }

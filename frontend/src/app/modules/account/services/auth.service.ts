@@ -12,7 +12,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword
 } from '@angular/fire/auth';
-import { LoginData } from '../interfaces/loginData';
+import { LoginData } from '../models/loginData';
 
 @Injectable({
   providedIn: 'root'

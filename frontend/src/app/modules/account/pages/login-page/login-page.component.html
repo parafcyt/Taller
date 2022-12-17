@@ -1,8 +1,19 @@
 <div class="container">
-    <app-login-form 
-        (formDataMail)="loginWithMail($event)"
-        (Google)="loginWithGoogle()"
-        (Facebook)="loginWithFacebook()"
-        (Twitter)="loginWithTwitter()">
-    </app-login-form>
+    <div class="row">
+        <mat-card-title>Iniciar sesión</mat-card-title>
+    </div>
+    <br><br>
+    <div class="row">
+        <app-login-form
+            [pShowText]="mShowText" 
+            (formDataMail)="loginWithMail($event)"
+            (Google)="loginWithGoogle()"
+            (Facebook)="loginWithFacebook()"
+            (Twitter)="loginWithTwitter()">
+        </app-login-form>
+    </div>
+    <br><br><br>
+    <div class="row">
+        <a mat-button routerLink="/registration">Registrarse</a>
+    </div>
 </div>

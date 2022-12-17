@@ -18,19 +18,19 @@
     </mat-form-field>
     <div class="form-footer">
         <button [disabled]="iForm.invalid" mat-raised-button (click)="onEmail()">
-            Ingresar
+            {{ pShowText }}
         </button>
 
         <br><br>
 
         <button mat-raised-button (click)="onGoogle()">
-            Ingresar con Google
+            {{ pShowText }} con Google
         </button>
 
         <br><br>
 
         <button mat-raised-button (click)="onFacebook()">
-            Ingresar con Facebook
+            {{ pShowText }} con Facebook
         </button>
     </div>
 </form>

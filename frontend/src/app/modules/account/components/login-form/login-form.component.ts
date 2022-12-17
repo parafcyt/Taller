@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginData } from '../../interfaces/loginData';
+import { LoginType } from '../../enums/loginType.enum';
+import { LoginData } from '../../models/loginData';
 
 @Component({
   selector: 'app-login-form',
@@ -8,6 +9,11 @@ import { LoginData } from '../../interfaces/loginData';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
+
+  /**
+   * Input para mostrar la acción a realizar
+   */
+  @Input() pShowText: LoginType;
   
   @Output() formDataMail: EventEmitter<LoginData> = new EventEmitter();
   @Output() Google: EventEmitter<any> = new EventEmitter();
