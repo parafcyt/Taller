@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginData } from '../../interfaces/loginData';
 
 @Component({
   selector: 'app-login-form',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
   
-  @Output() formDataMail: EventEmitter<{email: string;password: string;}> = new EventEmitter();
+  @Output() formDataMail: EventEmitter<LoginData> = new EventEmitter();
   @Output() Google: EventEmitter<any> = new EventEmitter();
   @Output() Facebook: EventEmitter<any> = new EventEmitter();
   @Output() Twitter: EventEmitter<any> = new EventEmitter();
@@ -34,7 +35,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   onEmail() {
-    this.formDataMail.emit(this.iForm.value);
+    this.formDataMail.emit(this.iForm.getRawValue());
   }
 
   onGoogle() {    
