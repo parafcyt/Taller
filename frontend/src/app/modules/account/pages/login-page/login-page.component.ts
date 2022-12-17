@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserCredential } from 'firebase/auth';
 import { LoginData } from '../../interfaces/loginData';
 import { AuthService } from '../../services/auth.service';
 
@@ -22,7 +23,7 @@ export class LoginPageComponent implements OnInit {
 
     this.iAuthService
       .loginWithMail(loginData)
-      .then(() => this.iRouter.navigate(['/home']))
+      .then((pUser: UserCredential) => this.validateRegistration(pUser))
       .catch((e) => console.log(e));
   }
 
@@ -30,7 +31,7 @@ export class LoginPageComponent implements OnInit {
 
     this.iAuthService
       .loginWithGoogle()
-      .then(() => this.iRouter.navigate(['/home']))
+      .then((pUser: UserCredential) => this.validateRegistration(pUser))
       .catch((e) => console.log(e));
   }
 
@@ -38,7 +39,7 @@ export class LoginPageComponent implements OnInit {
 
     this.iAuthService
       .loginWithFacebook()
-      .then(() => this.iRouter.navigate(['/home']))
+      .then((pUser: UserCredential) => this.validateRegistration(pUser))
       .catch((e) => console.log(e));
   }
 
@@ -46,7 +47,23 @@ export class LoginPageComponent implements OnInit {
 
     this.iAuthService
       .loginWithTwitter()
-      .then(() => this.iRouter.navigate(['/home']))
+      .then((pUser: UserCredential) => this.validateRegistration(pUser))
       .catch((e) => console.log(e));
+  }
+
+  /**
+   * Verifica que el usuario haya compeltado su registro
+   * @param pUser Objeto usuario
+   */
+  validateRegistration(pUser: UserCredential) {
+
+    console.log(pUser);
+
+    // TODO: Validar si el usuario completó sus datos y está en la bbdd local
+    // en caso de registro, navegar a la pagina para completar sus datos
+    this.iRouter.navigate(['/complete-registration']);
+
+    // en caso contrario, navegar al home
+    //this.iRouter.navigate(['/home']);
   }
 }

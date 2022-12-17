@@ -8,6 +8,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
 import { LoginFormComponent } from "./components/login-form/login-form.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
+import { CompleteRegistrationComponent } from './pages/complete-registration/complete-registration.component';
 
 
 
@@ -15,7 +16,8 @@ import { LoginPageComponent } from "./pages/login-page/login-page.component";
   declarations: [
     AccountComponent,
     LoginFormComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    CompleteRegistrationComponent
   ],
   imports: [
     CommonModule,
