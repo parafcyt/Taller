@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
-    <button mat-raised-button (click)="logout()">Cerrar sesión</button>
+    <button mat-raised-button (click)="logout()" *ngIf="isUserAuthenticated">Cerrar sesión</button>
+    <button mat-raised-button routerLink="/account" *ngIf="!isUserAuthenticated">Iniciar sesión</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

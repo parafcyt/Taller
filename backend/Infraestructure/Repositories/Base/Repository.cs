@@ -1,6 +1,7 @@
 ﻿using Domain.Repositories.Base;
 using Infraestructure.DataContext;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infraestructure.Repositories.Base
 {
@@ -53,6 +54,13 @@ namespace Infraestructure.Repositories.Base
         public IQueryable<T> AsQueryable()
         {
             return iTallerContext.Set<T>().AsNoTracking();
+        }
+
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate)
+        {
+            //return await iTallerContext.Set<T>().Where(pPredicate);
+
+            return await iTallerContext.Set<T>().FirstOrDefaultAsync(pPredicate);
         }
     }
 }

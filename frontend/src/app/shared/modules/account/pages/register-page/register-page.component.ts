@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserCredential } from 'firebase/auth';
 import { LoginType } from '../../enums/loginType.enum';
+import { UserRegistrationState } from '../../enums/userRegistrationState.enum';
 import { IValidateRegistration } from '../../interfaces/validateRegistration.interface';
 import { LoginData } from '../../models/loginData';
 import { AuthService } from '../../services/auth.service';
@@ -49,9 +50,15 @@ export class RegisterPageComponent implements OnInit, IValidateRegistration {
 
   validateRegistration(pUser: UserCredential): void {
     
-    console.log(pUser);
+    this.iAuthService.createUserIfNotExists(pUser.user).subscribe(pResponse => {
 
-    // El usuario se está registrando, asi que siempre navega a /complete-registration
-    this.iRouter.navigate(['/complete-registration']);
+      if (pResponse.code === UserRegistrationState.Uncompleted) {
+        
+        this.iRouter.navigate(['/account/complete-registration']);
+      }
+      else {
+        this.iRouter.navigate(['/public']);
+      }
+    });
   }
 }

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { 
   Auth, 
-  authState, 
-  signInAnonymously, 
   signOut, 
   User, 
   GoogleAuthProvider, 
@@ -13,13 +11,22 @@ import {
   createUserWithEmailAndPassword
 } from '@angular/fire/auth';
 import { LoginData } from '../models/loginData';
+import { from, map, Observable } from 'rxjs'
+import { ICreateUserResponse } from '../models/createUserResponse';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = { 
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private iAuth: Auth) { }
+  constructor(
+    private iAuth: Auth,
+    private iHttp: HttpClient) { }
 
   loginWithGoogle() {
     
@@ -46,9 +53,26 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.iAuth, email, password);
   }
 
-  logout() {
+  logout(): Observable<void> {
 
-    return signOut(this.iAuth);
+    const mObservable = from(signOut(this.iAuth));
+
+    return mObservable.pipe(
+      map(() => {
+        console.log("Sesión cerrada con éxito");
+      })
+    );
   }
-  
+
+  public createUserIfNotExists(pUser: User): Observable<ICreateUserResponse> {
+
+    let mUser = {
+        displayName: pUser.displayName,
+        email: pUser.email,
+        phoneNumber: pUser.phoneNumber,
+        uid: pUser.uid,
+    }
+
+    return this.iHttp.post<ICreateUserResponse>("https://localhost:7011/api/Account/CreateUserIfNotExists", mUser, httpOptions);
+  } 
 }

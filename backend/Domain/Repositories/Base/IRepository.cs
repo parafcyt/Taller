@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Linq.Expressions;
+
 namespace Domain.Repositories.Base
 {
     public interface IRepository<T> where T : class
@@ -38,5 +41,7 @@ namespace Domain.Repositories.Base
         Task DeleteAsync(T entity);
 
         IQueryable<T> AsQueryable();
+
+        Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate);
     }
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
 import { UserCredential } from 'firebase/auth';
 import { LoginType } from '../../enums/loginType.enum';
+import { UserRegistrationState } from '../../enums/userRegistrationState.enum';
 import { IValidateRegistration } from '../../interfaces/validateRegistration.interface';
 import { LoginData } from '../../models/loginData';
-import { AuthService } from '../../services/auth.service';
+import { user, Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login-page',
@@ -16,11 +19,20 @@ export class LoginPageComponent implements OnInit, IValidateRegistration {
   mShowText: LoginType = LoginType.Login;
 
   constructor(
+    private readonly iRouter: Router,
     private readonly iAuthService: AuthService,
-    private readonly iRouter: Router
+    private readonly iAuth: Auth
   ) { }
 
   ngOnInit(): void {
+
+    user(this.iAuth).subscribe(pCurrentUser => {
+
+      if (pCurrentUser != null) {
+        
+        this.iRouter.navigate(['/public']);
+      }
+    });
   }
 
   loginWithMail(loginData: LoginData) {
@@ -57,13 +69,15 @@ export class LoginPageComponent implements OnInit, IValidateRegistration {
 
   validateRegistration(pUser: UserCredential) {
 
-    console.log(pUser);
+    this.iAuthService.createUserIfNotExists(pUser.user).subscribe(pResponse => {
 
-    // TODO: Validar si el usuario completó sus datos y está en la bbdd local
-    // en caso de registro, navegar a la pagina para completar sus datos
-    this.iRouter.navigate(['/complete-registration']);
-
-    // en caso contrario, navegar al home
-    //this.iRouter.navigate(['/home']);
+      if (pResponse.code === UserRegistrationState.Uncompleted) {
+        
+        this.iRouter.navigate(['/account/complete-registration']);
+      }
+      else {
+        this.iRouter.navigate(['/public']);
+      }
+    });
   }
 }

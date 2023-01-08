@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Repositories.Base;
+using System.Linq.Expressions;
 
 namespace Application.Services
 {
@@ -30,6 +31,11 @@ namespace Application.Services
         public IQueryable<T> GetAllAsync()
         {
             return iRepository.AsQueryable();
+        }
+
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate)
+        {
+            return await iRepository.GetAsync(pPredicate);
         }
 
         public async Task<T?> GetByIdAsync(int pId)

@@ -1,41 +1,31 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { RouterModule, Routes } from '@angular/router';
 
-/**
- * Pipe para redireccionar al login
- */
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 
-/**
- * Pipe para redireccionar al home en caso de que el usuario quiera acceder al login
- */
-const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/']);
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/account/account.module')
-      .then(mod => mod.AccountModule),
-      ...canActivate(redirectLoggedInToHome),
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./modules/client/client.module')
-      .then(mod => mod.ClientModule),
-      ...canActivate(redirectUnauthorizedToLogin),
-  },
-  {
-    path: 'administration',
-    loadChildren: () => import('./modules/admin/admin.module')
-      .then(mod => mod.AdminModule),
-      ...canActivate(redirectUnauthorizedToLogin),
+    redirectTo: '/public',
+    pathMatch: 'full'
   },
   {
     path: 'account',
-    loadChildren: () => import('./modules/account/account.module')
-      .then(mod => mod.AccountModule),
-      ...canActivate(redirectUnauthorizedToLogin),
+    loadChildren: () => import('src/app/shared/modules/account/account.module')
+      .then(mod => mod.AccountModule)
+  },
+  {
+    path: 'public',
+    loadChildren: () => import('./modules/public/public.module')
+      .then(mod => mod.PublicModule)
+  },
+  {
+    path: 'private',
+    loadChildren: () => import('./modules/private/private.module')
+      .then(mod => mod.PrivateModule),
+      ...canActivate(redirectUnauthorizedToLogin)
   },
   {
     path: '**',
