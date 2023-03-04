@@ -1,15 +1,17 @@
-﻿
+﻿using Domain.BaseEntity;
 using System.Linq.Expressions;
 
 namespace Application.Interfaces
 {
-    public interface IBaseService<T> where T : class
+    public interface IBaseService<T> where T : Entity
     {
         Task<T?> GetByIdAsync(int pId);
 
         Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate);
 
-        IQueryable<T> GetAllAsync();
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> pPredicate);
+
+        IQueryable<T> GetQueryable();
 
         Task<T> AddAsync(T pInput);
 

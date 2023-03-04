@@ -1,6 +1,4 @@
-using Api.GraphQL.Destinations;
-using Api.GraphQL.Hotels;
-using Api.GraphQL.Transports;
+using Api.GraphQL;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Repositories.Base;
@@ -43,16 +41,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // Servicios
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 
-// Queries y Mutations
-builder.Services.AddScoped<DestinationQuery>();
-builder.Services.AddScoped<DestinationMutation>();
-builder.Services.AddScoped<HotelQuery>();
-builder.Services.AddScoped<HotelMutation>();
-builder.Services.AddScoped<TransportQuery>();
-builder.Services.AddScoped<TransportMutation>();
-
 // GraphQL
-ConfigureGraphQl(builder.Services);
+GraphQLConfiguration.ConfigureGraphQL(builder.Services);
 
 #endregion
 
@@ -76,24 +66,3 @@ app.MapControllers();
 app.MapGraphQL();
 
 app.Run();
-
-void ConfigureGraphQl(IServiceCollection services)
-{
-    services.AddGraphQLServer()
-    .RegisterDbContext<TallerContext>()
-
-    // QUERYS
-    .AddQueryType(t => t.Name("Query"))
-        .AddType<DestinationQueryType>()
-        .AddType<HotelQueryType>()
-        .AddType<TransportQueryType>()
-
-    // MUTATION
-    .AddMutationType()
-        .AddTypeExtension<DestinationMutation>()
-        .AddTypeExtension<HotelMutation>()
-        .AddTypeExtension<TransportMutation>()
-
-    // OTROS
-    .AddProjections();
-}

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class Favorite
+    public partial class Favorite : Entity
     {
         public int FavoriteId { get; set; }
         public int ProductId { get; set; }

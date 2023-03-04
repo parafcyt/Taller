@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class Offer
+    public partial class Offer : Entity
     {
         public int OfferId { get; set; }
         public double OfferPrice { get; set; }

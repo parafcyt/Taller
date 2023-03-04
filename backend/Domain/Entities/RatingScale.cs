@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class RatingScale
+    public partial class RatingScale : Entity
     {
         public RatingScale()
         {

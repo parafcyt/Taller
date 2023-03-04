@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class Destination
+    public partial class Destination : Entity
     {
         public Destination()
         {

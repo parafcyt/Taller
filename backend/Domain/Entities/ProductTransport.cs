@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class ProductTransport
+    public partial class ProductTransport : Entity
     {
         public int ProductTransportId { get; set; }
         public byte Order { get; set; }

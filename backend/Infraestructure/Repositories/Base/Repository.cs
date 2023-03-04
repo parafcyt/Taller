@@ -1,11 +1,12 @@
-﻿using Domain.Repositories.Base;
+﻿using Domain.BaseEntity;
+using Domain.Repositories.Base;
 using Infraestructure.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Infraestructure.Repositories.Base
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : Entity
     {
         protected readonly TallerContext iTallerContext;
 
@@ -14,15 +15,10 @@ namespace Infraestructure.Repositories.Base
             iTallerContext = pTallerContext;
         }
 
-        private async Task SaveChanges()
-        {
-            await iTallerContext.SaveChangesAsync();
-        }
-
         public async Task<T> AddAsync(T entity)
         {
             await iTallerContext.Set<T>().AddAsync(entity);
-            await SaveChanges();
+            await iTallerContext.SaveChangesAsync();
 
             return entity;
         }
@@ -30,7 +26,7 @@ namespace Infraestructure.Repositories.Base
         public async Task DeleteAsync(T entity)
         {
             iTallerContext.Set<T>().Remove(entity);
-            await SaveChanges();
+            await iTallerContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -46,7 +42,7 @@ namespace Infraestructure.Repositories.Base
         public async Task<T> UpdateAsync(T entity)
         {
             iTallerContext.Set<T>().Update(entity);
-            await SaveChanges();
+            await iTallerContext.SaveChangesAsync();
 
             return entity;
         }
@@ -58,9 +54,12 @@ namespace Infraestructure.Repositories.Base
 
         public async Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate)
         {
-            //return await iTallerContext.Set<T>().Where(pPredicate);
-
             return await iTallerContext.Set<T>().FirstOrDefaultAsync(pPredicate);
+        }
+
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> pPredicate)
+        {
+            return await iTallerContext.Set<T>().Where(pPredicate).ToListAsync();
         }
     }
 }

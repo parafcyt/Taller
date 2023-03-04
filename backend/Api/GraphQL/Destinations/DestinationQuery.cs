@@ -1,8 +1,11 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using UseFilteringAttribute = HotChocolate.Data.UseFilteringAttribute;
+using UseSortingAttribute = HotChocolate.Data.UseSortingAttribute;
 
 namespace Api.GraphQL.Destinations
 {
+    [ExtendObjectType("Query")]
     public class DestinationQuery
     {
         private readonly IBaseService<Destination> iDestinationService;
@@ -16,37 +19,20 @@ namespace Api.GraphQL.Destinations
             iDestinationPhotoService = pDestinationPhotoService;
         }
 
-        /// <summary>
-        /// Permite hacer querys sobre la entidad destino
-        /// </summary>
-        /// <returns></returns>
         [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Destination> GetDestinations()
         {
-            return iDestinationService.GetAllAsync();
-        }
-
-        /// <summary>
-        /// Obtiene un destino por Id
-        /// </summary>
-        /// <param name="pId">identificador</param>
-        /// <returns></returns>
-        [UseProjection]
-        public async Task<Destination?> GetDestination(int pId)
-        {
-            return await iDestinationService.GetByIdAsync(pId);
+            return iDestinationService.GetQueryable();
         }
 
         [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<DestinationPhoto> GetDestinationPhotos()
         {
-            return iDestinationPhotoService.GetAllAsync();
-        }
-
-        [UseProjection]
-        public async Task<DestinationPhoto?> GetDestinationPhoto(int pId)
-        {
-            return await iDestinationPhotoService.GetByIdAsync(pId);
+            return iDestinationPhotoService.GetQueryable();
         }
     }
 }

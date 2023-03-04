@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class HotelPhoto
+    public partial class HotelPhoto : Entity
     {
         public int HotelPhotoId { get; set; }
         public string Url { get; set; } = null!;

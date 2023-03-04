@@ -1,10 +1,9 @@
-﻿
-using System;
+﻿using Domain.BaseEntity;
 using System.Linq.Expressions;
 
 namespace Domain.Repositories.Base
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : Entity
     {
         /// <summary>
         /// Obtener todos los elementos/entidades
@@ -40,8 +39,24 @@ namespace Domain.Repositories.Base
         /// <returns></returns>
         Task DeleteAsync(T entity);
 
+        /// <summary>
+        /// Retorna un IQueryable para utilizar con GraphQL
+        /// </summary>
+        /// <returns></returns>
         IQueryable<T> AsQueryable();
 
+        /// <summary>
+        /// Obtiene un elemento en base a un predicado
+        /// </summary>
+        /// <param name="pPredicate"></param>
+        /// <returns></returns>
         Task<T?> GetAsync(Expression<Func<T, bool>> pPredicate);
+
+        /// <summary>
+        /// Obtiene una lista de elementos en base a un predicado
+        /// </summary>
+        /// <param name="pPredicate"></param>
+        /// <returns></returns>
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> pPredicate);
     }
 }

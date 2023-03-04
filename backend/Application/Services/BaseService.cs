@@ -1,10 +1,11 @@
 ﻿using Application.Interfaces;
+using Domain.BaseEntity;
 using Domain.Repositories.Base;
 using System.Linq.Expressions;
 
 namespace Application.Services
 {
-    public class BaseService<T> : IBaseService<T> where T : class
+    public class BaseService<T> : IBaseService<T> where T : Entity
     {
         private readonly IRepository<T> iRepository;
 
@@ -28,7 +29,7 @@ namespace Application.Services
             }
         }
 
-        public IQueryable<T> GetAllAsync()
+        public IQueryable<T> GetQueryable()
         {
             return iRepository.AsQueryable();
         }
@@ -46,6 +47,11 @@ namespace Application.Services
         public async Task<T> UpdateAsync(T pInput)
         {
             return await iRepository.UpdateAsync(pInput);
+        }
+
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> pPredicate)
+        {
+            return await iRepository.GetListAsync(pPredicate);
         }
     }
 }

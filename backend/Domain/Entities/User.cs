@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.BaseEntity;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class User
+    public partial class User : Entity
     {
         public string UserId { get; set; } = null!;
         public bool State { get; set; }

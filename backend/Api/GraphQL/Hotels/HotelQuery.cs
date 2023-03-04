@@ -1,9 +1,11 @@
 ﻿using Application.Interfaces;
-using AutoMapper;
 using Domain.Entities;
+using UseFilteringAttribute = HotChocolate.Data.UseFilteringAttribute;
+using UseSortingAttribute = HotChocolate.Data.UseSortingAttribute;
 
 namespace Api.GraphQL.Hotels
 {
+    [ExtendObjectType("Query")]
     public class HotelQuery
     {
         private readonly IBaseService<Hotel> iHotelService;
@@ -18,27 +20,19 @@ namespace Api.GraphQL.Hotels
         }
 
         [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Hotel> GetHotels()
         {
-            return iHotelService.GetAllAsync();
+            return iHotelService.GetQueryable();
         }
 
         [UseProjection]
-        public async Task<Hotel?> GetHotel(int pId)
-        {
-            return await iHotelService.GetByIdAsync(pId);
-        }
-
-        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<HotelPhoto> GetHotelPhotos()
         {
-            return iHotelPhotoService.GetAllAsync();
-        }
-
-        [UseProjection]
-        public async Task<HotelPhoto?> GetHotelPhoto(int pId)
-        {
-            return await iHotelPhotoService.GetByIdAsync(pId);
+            return iHotelPhotoService.GetQueryable();
         }
     }
 }

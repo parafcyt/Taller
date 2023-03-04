@@ -25,11 +25,6 @@ namespace Api.GraphQL.Destinations
             iMapper = pMapper;
         }
 
-        /// <summary>
-        /// Agrega un destino
-        /// </summary>
-        /// <param name="pInput"></param>
-        /// <returns></returns>
         public async Task<Destination> AddDestination(CreateDestinationInputDto pInput)
         {
             //HAGO VALIDACIONES ACA
@@ -43,11 +38,6 @@ namespace Api.GraphQL.Destinations
             return await iDestinationService.AddAsync(mDestination);
         }
 
-        /// <summary>
-        /// Actualiza un destino
-        /// </summary>
-        /// <param name="pInput"></param>
-        /// <returns></returns>
         public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pInput)
         {
             var mDestination = iMapper.Map<Destination>(pInput);
@@ -55,11 +45,6 @@ namespace Api.GraphQL.Destinations
             return await iDestinationService.UpdateAsync(mDestination);
         }
 
-        /// <summary>
-        /// Elimina un destino
-        /// </summary>
-        /// <param name="pId"></param>
-        /// <returns></returns>
         public async Task DeleteDestination(int pId)
         {
             await iDestinationService.DeleteAsync(pId);
