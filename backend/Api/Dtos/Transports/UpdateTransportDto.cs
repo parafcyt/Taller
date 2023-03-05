@@ -2,12 +2,12 @@
 
 namespace Api.Dtos.Transports
 {
-    public class UpdateTransportInputDto
+    public class UpdateTransportDto
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Api.GraphQL
     {
         public static IServiceCollection ConfigureGraphQL(this IServiceCollection pServiceCollection)
         {
-            // Agrego las querys y mutations al scope de la aplicación para poder ser injectadas
+            // Agrego los servicios de querys y mutations como Scoped: Cada servicio scoped se creará una vez por request
             pServiceCollection.AddScoped<DestinationQuery>();
             pServiceCollection.AddScoped<DestinationMutation>();
             pServiceCollection.AddScoped<HotelQuery>();

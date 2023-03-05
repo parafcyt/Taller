@@ -25,7 +25,7 @@ namespace Api.GraphQL.Destinations
             iMapper = pMapper;
         }
 
-        public async Task<Destination> AddDestination(CreateDestinationInputDto pInput)
+        public async Task<Destination> AddDestination(CreateDestinationDto pInput)
         {
             //HAGO VALIDACIONES ACA
             if (pInput.Name == null)
@@ -38,7 +38,7 @@ namespace Api.GraphQL.Destinations
             return await iDestinationService.AddAsync(mDestination);
         }
 
-        public async Task<Destination> UpdateDestination(UpdateDestinationInputDto pInput)
+        public async Task<Destination> UpdateDestination(UpdateDestinationDto pInput)
         {
             var mDestination = iMapper.Map<Destination>(pInput);
 
@@ -50,14 +50,14 @@ namespace Api.GraphQL.Destinations
             await iDestinationService.DeleteAsync(pId);
         }
 
-        public async Task<DestinationPhoto> AddDestinationPhoto(CreateDestinationPhotoInputDto pInput)
+        public async Task<DestinationPhoto> AddDestinationPhoto(CreateDestinationPhotoDto pInput)
         {
             var mDestinationPhoto = iMapper.Map<DestinationPhoto>(pInput);
 
             return await iDestinationPhotoService.AddAsync(mDestinationPhoto);
         }
 
-        public async Task<DestinationPhoto> UpdateDestinationPhoto(UpdateDestinationPhotoInputDto pInput)
+        public async Task<DestinationPhoto> UpdateDestinationPhoto(UpdateDestinationPhotoDto pInput)
         {
             var mDestinationPhoto = iMapper.Map<DestinationPhoto>(pInput);
 

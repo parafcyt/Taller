@@ -2,12 +2,12 @@
 
 namespace Api.Dtos.Hotels
 {
-    public class CreateHotelPhotoInputDto
+    public class CreateHotelPhotoDto
     {
         [Required]
-        public string Url { get; set; } = null!;
+        public string Url { get; set; }
 
-        public string Description { get; set; } = null!;
+        public string Description { get; set; }
 
         [Required]
         public int HotelId { get; set; }

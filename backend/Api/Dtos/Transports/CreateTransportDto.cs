@@ -2,9 +2,9 @@
 
 namespace Api.Dtos.Transports
 {
-    public class CreateTransportInputDto
+    public class CreateTransportDto
     {
         [Required]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
     }
 }

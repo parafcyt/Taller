@@ -21,14 +21,14 @@ namespace Api.GraphQL.Transports
             iMapper = pMapper;
         }
 
-        public async Task<Transport> AddTransport(CreateTransportInputDto pInput)
+        public async Task<Transport> AddTransport(CreateTransportDto pInput)
         {
             var mTransport = iMapper.Map<Transport>(pInput);
 
             return await iTransportService.AddAsync(mTransport);
         }
 
-        public async Task<Transport> UpdateTransport(UpdateTransportInputDto pInput)
+        public async Task<Transport> UpdateTransport(UpdateTransportDto pInput)
         {
             var mTransport = iMapper.Map<Transport>(pInput);
 

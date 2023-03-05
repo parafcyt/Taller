@@ -10,20 +10,20 @@ namespace Api.Mappers
     {
         public AutoMapper()
         {
-            CreateMap<CreateDestinationInputDto, Destination>();
-            CreateMap<UpdateDestinationInputDto, Destination>();
+            CreateMap<CreateDestinationDto, Destination>();
+            CreateMap<UpdateDestinationDto, Destination>();
 
-            CreateMap<CreateDestinationPhotoInputDto, DestinationPhoto>();
-            CreateMap<UpdateDestinationPhotoInputDto, DestinationPhoto>();
+            CreateMap<CreateDestinationPhotoDto, DestinationPhoto>();
+            CreateMap<UpdateDestinationPhotoDto, DestinationPhoto>();
 
-            CreateMap<CreateHotelInputDto, Hotel>();
-            CreateMap<UpdateHotelInputDto, Hotel>();
+            CreateMap<CreateHotelDto, Hotel>();
+            CreateMap<UpdateHotelDto, Hotel>();
 
-            CreateMap<CreateHotelPhotoInputDto, HotelPhoto>();
-            CreateMap<UpdateHotelPhotoInputDto, HotelPhoto>();
+            CreateMap<CreateHotelPhotoDto, HotelPhoto>();
+            CreateMap<UpdateHotelPhotoDto, HotelPhoto>();
 
-            CreateMap<CreateTransportInputDto, Transport>();
-            CreateMap<UpdateTransportInputDto, Transport>();
+            CreateMap<CreateTransportDto, Transport>();
+            CreateMap<UpdateTransportDto, Transport>();
         }
     }
 }

@@ -24,14 +24,14 @@ namespace Api.GraphQL.Hotels
             iMapper = pMapper;
         }
 
-        public async Task<Hotel> AddHotel(CreateHotelInputDto pInput)
+        public async Task<Hotel> AddHotel(CreateHotelDto pInput)
         {
             var mHotel = iMapper.Map<Hotel>(pInput);
 
             return await iHotelService.AddAsync(mHotel);
         }
 
-        public async Task<Hotel> UpdateHotel(UpdateHotelInputDto pInput)
+        public async Task<Hotel> UpdateHotel(UpdateHotelDto pInput)
         {
             var mHotel = iMapper.Map<Hotel>(pInput);
 
@@ -43,14 +43,14 @@ namespace Api.GraphQL.Hotels
             await iHotelService.DeleteAsync(pId);
         }
 
-        public async Task<HotelPhoto> AddHotelPhoto(CreateHotelPhotoInputDto pInput)
+        public async Task<HotelPhoto> AddHotelPhoto(CreateHotelPhotoDto pInput)
         {
             var mHotelPhoto = iMapper.Map<HotelPhoto>(pInput);
 
             return await iHotelPhotoService.AddAsync(mHotelPhoto);
         }
 
-        public async Task<HotelPhoto> UpdateHotelPhoto(UpdateHotelPhotoInputDto pInput)
+        public async Task<HotelPhoto> UpdateHotelPhoto(UpdateHotelPhotoDto pInput)
         {
             var mHotelPhoto = iMapper.Map<HotelPhoto>(pInput);
 

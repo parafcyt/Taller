@@ -2,15 +2,15 @@
 
 namespace Api.Dtos.Hotels
 {
-    public class UpdateHotelInputDto
+    public class UpdateHotelDto
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
 
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public int DestinationId { get; set; }

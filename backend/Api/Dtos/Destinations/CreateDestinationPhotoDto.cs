@@ -2,12 +2,12 @@
 
 namespace Api.Dtos.Destinations
 {
-    public class CreateDestinationPhotoInputDto
+    public class CreateDestinationPhotoDto
     {
         [Required]
-        public string Url { get; set; } = null!;
+        public string Url { get; set; }
 
-        public string Description { get; set; } = null!;
+        public string Description { get; set; }
 
         [Required]
         public int DestinationId { get; set; }
