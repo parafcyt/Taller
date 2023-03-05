@@ -12,14 +12,19 @@ namespace Domain.Entities
             Orders = new HashSet<Order>();
         }
 
-        public string CustomerId { get; set; } = null!;
-        public string Name { get; set; } = null!;
-        public string LastName { get; set; } = null!;
-        public string Dni { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public DateTime Birthdate { get; set; }
-        public string PhoneNumber { get; set; } = null!;
+        public int CustomerId { get; set; }
+        public string CustomerSourceId { get; set; } = null!;
+        public string? Name { get; set; }
+        public string? LastName { get; set; }
+        public string? Dni { get; set; }
+        public string? Email { get; set; }
+        public DateTime? Birthdate { get; set; }
+        public string? PhoneNumber { get; set; }
+        public bool RegistrationCompleted { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public byte RegistrationMethodId { get; set; }
 
+        public virtual RegistrationMethod RegistrationMethod { get; set; } = null!;
         public virtual ICollection<Favorite> Favorites { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }

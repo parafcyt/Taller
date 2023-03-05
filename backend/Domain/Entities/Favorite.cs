@@ -8,7 +8,8 @@ namespace Domain.Entities
     {
         public int FavoriteId { get; set; }
         public int ProductId { get; set; }
-        public string CustomerId { get; set; } = null!;
+        public int CustomerId { get; set; }
+        public DateTime CreatedtDate { get; set; }
 
         public virtual Customer Customer { get; set; } = null!;
         public virtual Product Product { get; set; } = null!;

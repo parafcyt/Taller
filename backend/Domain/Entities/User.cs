@@ -6,9 +6,13 @@ namespace Domain.Entities
 {
     public partial class User : Entity
     {
-        public string UserId { get; set; } = null!;
-        public bool State { get; set; }
-        public string Name { get; set; } = null!;
+        public int UserId { get; set; }
+        public string LoginName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public bool Active { get; set; }
+        public string? Name { get; set; }
+        public string? LastName { get; set; }
         public string? Email { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

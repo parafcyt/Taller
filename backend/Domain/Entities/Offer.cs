@@ -8,9 +8,11 @@ namespace Domain.Entities
     {
         public int OfferId { get; set; }
         public double OfferPrice { get; set; }
-        public DateTime CreationDate { get; set; }
-        public bool State { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndtDate { get; set; }
+        public bool Active { get; set; }
         public string? BannerText { get; set; }
+        public DateTime CreatedtDate { get; set; }
         public int ProductId { get; set; }
 
         public virtual Product Product { get; set; } = null!;

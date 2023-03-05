@@ -17,13 +17,13 @@ namespace Domain.Entities
 
         public int ProductId { get; set; }
         public string Name { get; set; } = null!;
-        public string? Description { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime ReturnDate { get; set; }
         public double Price { get; set; }
         public int Stock { get; set; }
         public string? DocumentationDes { get; set; }
-        public bool State { get; set; }
+        public bool Active { get; set; }
+        public DateTime CreatedDate { get; set; }
         public byte BookingTypeId { get; set; }
         public int OriginId { get; set; }
         public int DestinationId { get; set; }
