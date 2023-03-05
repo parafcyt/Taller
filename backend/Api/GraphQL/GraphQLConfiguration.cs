@@ -1,5 +1,6 @@
 ﻿using Api.GraphQL.Destinations;
 using Api.GraphQL.Hotels;
+using Api.GraphQL.RatingScales;
 using Api.GraphQL.Transports;
 using Infraestructure.DataContext;
 
@@ -16,6 +17,7 @@ namespace Api.GraphQL
             pServiceCollection.AddScoped<HotelMutation>();
             pServiceCollection.AddScoped<TransportQuery>();
             pServiceCollection.AddScoped<TransportMutation>();
+            pServiceCollection.AddScoped<RatingScaleQuery>();
 
             // Vincula GraphQL con el contexto de la BBDD
             pServiceCollection
@@ -26,6 +28,7 @@ namespace Api.GraphQL
                     .AddType<DestinationQuery>()
                     .AddType<HotelQuery>()
                     .AddType<TransportQuery>()
+                    .AddType<RatingScaleQuery>()
 
                 // Configuro las mutations
                 .AddMutationType()
